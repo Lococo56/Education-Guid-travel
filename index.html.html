@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แหล่งเรียนรู้ละคู่มือการท่องเที่ยว(Educational & Guide travel)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons CDN -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts Inter & Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        globe: {
+                            blue: '#1B365D',
+                            teal: '#008080',
+                            gold: '#D4AF37',
+                            light: '#F8FAFC',
+                            dark: '#0F172A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .card-img {
+            transition: transform 0.5s ease;
+        }
+        .card-hover:hover .card-img {
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.25s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-globe-gold selection:text-white bg-globe-light text-gray-800">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <div class="w-11 h-11 bg-globe-blue rounded-xl flex items-center justify-center text-white shadow-md">
+                        <i class="ph ph-globe-hemisphere-east text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-bold text-xl tracking-tight text-globe-blue block leading-none">Educational & Guide travel </span>
+                        <span class="text-xs text-gray-500 font-medium">แหล่งเรียนรู้ละคู่มือการท่องเที่ยว</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="text-globe-blue font-semibold transition-colors hover:text-globe-teal">หน้าแรก</a>
+                    <a href="#destinations" class="text-gray-600 hover:text-globe-blue font-medium transition-colors">10 ประเทศศึกษา</a>
+                    <a href="#culture-hub" class="text-gray-600 hover:text-globe-blue font-medium transition-colors">สาระน่ารู้</a>
+                    <a href="#resources" class="text-gray-600 hover:text-globe-blue font-medium transition-colors">คู่มือโครงงาน</a>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="scrollToSection('destinations')" class="bg-globe-blue text-white px-5 py-2.5 rounded-full font-medium hover:bg-globe-blue/90 transition-all shadow-md flex items-center gap-2">
+                        <i class="ph ph-compass"></i> สำรวจ 10 ประเทศ
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-globe-blue p-2 text-2xl focus:outline-none">
+                        <i id="menuIcon" class="ph ph-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3 shadow-lg">
+            <a href="#" onclick="toggleMobileMenu()" class="block text-globe-blue font-semibold py-1">หน้าแรก</a>
+            <a href="#destinations" onclick="toggleMobileMenu()" class="block text-gray-600 font-medium py-1">10 ประเทศศึกษา</a>
+            <a href="#culture-hub" onclick="toggleMobileMenu()" class="block text-gray-600 font-medium py-1">สาระน่ารู้</a>
+            <a href="#resources" onclick="toggleMobileMenu()" class="block text-gray-600 font-medium py-1">คู่มือโครงงาน</a>
+        </div>
+    </nav>
+
+    <header class="relative h-screen min-h-[650px] flex items-center justify-center overflow-hidden bg-globe-blue text-white">
+        <div class="absolute inset-0 z-0 opacity-40">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2935&auto=format&fit=crop" alt="Hero Background" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-globe-dark/90 via-globe-blue/60 to-transparent z-10"></div>
+        
+        <div class="relative z-20 max-w-5xl mx-auto px-4 text-center mt-12">
+            <span class="inline-flex items-center gap-2 bg-globe-gold/20 text-globe-gold border border-globe-gold/40 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 backdrop-blur">
+                <i class="ph ph-sparkle text-lg"></i> โครงการเรียนรู้วัฒนธรรมนานาชาติ 2026
+            </span>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                เปิดโลกทัศน์การศึกษาและการท่องเที่ยว <br class="hidden sm:inline"><span class="text-globe-gold">ใน 10 อารยธรรมโลก</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                คู่มืออ้างอิงเชิงวิชาการ วัฒนธรรม สถาปัตยกรรม และข้อควรปฏิบัติสำหรับการออกภาคสนามและการศึกษาต่อต่างประเทศ
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button onclick="scrollToSection('destinations')" class="w-full sm:w-auto bg-globe-gold text-globe-dark px-8 py-4 rounded-full font-bold hover:bg-yellow-400 transition-all shadow-lg flex items-center justify-center gap-2 text-base">
+                    <i class="ph ph-compass text-xl"></i> เริ่มต้นสำรวจ 10 ประเทศ
+                </button>
+                <button onclick="scrollToSection('culture-hub')" class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-4 rounded-full font-bold transition-all backdrop-blur flex items-center justify-center gap-2 text-base">
+                    <i class="ph ph-book-open text-xl"></i> คู่มือและเกร็ดความรู้
+                </button>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 animate-bounce cursor-pointer" onclick="scrollToSection('destinations')">
+            <i class="ph ph-arrow-down text-2xl text-white/80"></i>
+        </div>
+    </header>
+
+    <section id="destinations" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+            <div>
+                <span class="text-globe-teal font-semibold tracking-widest text-sm uppercase block mb-2">Global Destinations</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-globe-blue">10 ประเทศศึกษาและอารยธรรมหลัก</h2>
+            </div>
+            
+            <!-- Search Filter Bar -->
+            <div class="w-full md:w-80 relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+                    <i class="ph ph-magnifying-glass text-lg"></i>
+                </span>
+                <input type="text" id="searchInput" placeholder="ค้นหาประเทศ เมือง หรือสถานที่..." class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-globe-blue shadow-sm transition-all">
+            </div>
+        </div>
+
+        <!-- Country Grid Container -->
+        <div id="countryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1. ญี่ปุ่น -->
+            <div onclick="openCountryDetail('japan')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2940&auto=format&fit=crop" alt="Japan" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇯🇵 ญี่ปุ่น (Japan)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> เกียวโต (Kyoto)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">วัดคิโยมิซุ (Kiyomizu-dera)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            วัดพุทธโบราณบนภูเขาฮิงาน시 มีชื่อเสียงเรื่องระเบียงไม้ขนาดใหญ่ที่สร้างขึ้นโดยไม่ใช้ตะปูแม้แต่ตัวเดียว เป็นมรดกโลกยูเนสโก
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> วัฒนธรรมและสถาปัตยกรรมเซน</span>
+                        <span class="text-globe-gold font-semibold">โซนเอเชียตะวันออก</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. อิตาลี -->
+            <div onclick="openCountryDetail('italy')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=2896&auto=format&fit=crop" alt="Italy" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇮🇹 อิตาลี (Italy)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> กรุงโรม (Rome)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">โคลอสเซียม (Colosseum)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            อัฒจันทร์โบราณยุคจักรวรรดิโรมัน สัญลักษณ์แห่งความยิ่งใหญ่ทางวิศวกรรมสถาปัตยกรรมในอดีต รองรับผู้ชมได้กว่า 50,000 คน
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> ประวัติศาสตร์โรมันโบราณ</span>
+                        <span class="text-globe-gold font-semibold">โซนยุโรปใต้</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. อียิปต์ -->
+            <div onclick="openCountryDetail('egypt')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=2940&auto=format&fit=crop" alt="Egypt" class="card-img w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1B365D/FFFFFF?text=Egypt+Pyramids'" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇪🇬 อียิปต์ (Egypt)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> กีซา (Giza)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">พีระมิดแห่งกีซา (Giza Pyramid Complex)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            หนึ่งในเจ็ดสิ่งมหัศจรรย์ของโลกยุคโบราณ สุสานหลวงของฟาโรห์ที่แสดงถึงความเจริญก้าวหน้าทางดาราศาสตร์และคณิตศาสตร์
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> อารยธรรมลุ่มแม่น้ำไนล์</span>
+                        <span class="text-globe-gold font-semibold">โซนแอฟริกาเหนือ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ฝรั่งเศส -->
+            <div onclick="openCountryDetail('france')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2946&auto=format&fit=crop" alt="France" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇫🇷 ฝรั่งเศส (France)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> ปารีส (Paris)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">พิพิธภัณฑ์ลูฟวร์ (Louvre Museum)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            พิพิธภัณฑ์ทางศิลปะที่ใหญ่ที่สุดในโลก อดีตพระราชวังหลวงแหล่งรวมผลงานชิ้นเอกอย่างภาพโมนาลิซาและประติมากรรมกรีกโบราณ
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> ศิลปกรรมและยุคเรเนสซองส์</span>
+                        <span class="text-globe-gold font-semibold">โซนยุโรปตะวันตก</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. สหรัฐอเมริกา -->
+            <div onclick="openCountryDetail('usa')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?q=80&w=2942&auto=format&fit=crop" alt="USA" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇺🇸 สหรัฐอเมริกา (USA)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> นิวยอร์ก (New York)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">เทพีเสรีภาพ (Statue of Liberty)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            อนุสาวรีย์ทองแดงอันยิ่งใหญ่ ของขวัญจากประเทศฝรั่งเศส สัญลักษณ์แห่งเสรีภาพประชาธิปไตยและการต้อนรับผู้อพยพ
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> ประวัติศาสตร์ร่วมสมัย</span>
+                        <span class="text-globe-gold font-semibold">โซนอเมริกาเหนือ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. อินเดีย -->
+            <div onclick="openCountryDetail('india')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=2864&auto=format&fit=crop" alt="India" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇮🇳 อินเดีย (India)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> อัครา (Agra)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">ทัชมาฮาล (Taj Mahal)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            สุสานหินอ่อนสีขาวบริสุทธิ์ ผลงานสถาปัตยกรรมโมกุลที่งดงามที่สุดในโลก สร้างขึ้นด้วยความรักและประดับด้วยอัญมณีล้ำค่า
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> สถาปัตยกรรมโมกุล</span>
+                        <span class="text-globe-gold font-semibold">โซนเอเชียใต้</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. สหราชอาณาจักร -->
+            <div onclick="openCountryDetail('uk')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2940&auto=format&fit=crop" alt="UK" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇬🇧 สหราชอาณาจักร (UK)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> ลอนดอน (London)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">หอนาฬิกาบิกเบน (Big Ben)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            หอนาฬิกาพระราชวังเวสต์มินสเตอร์ สถาปัตยกรรมนีโอโกธิคอันโดดเด่นริมแม่น้ำเทมส์ ศู นย์ กลางประวัติศาสตร์การเมืองอังกฤษ
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> สถาปัตยกรรมวิกตอเรียน</span>
+                        <span class="text-globe-gold font-semibold">โซนยุโรปเหนือ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. ออสเตรเลีย -->
+            <div onclick="openCountryDetail('australia')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=2940&auto=format&fit=crop" alt="Australia" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇦🇺 ออสเตรเลีย (Australia)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> ซิดนีย์ (Sydney)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">โรงละครโอเปร่าเฮาส์ (Sydney Opera House)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            ผลงานชิ้นเอกทางสถาปัตยกรรมสมัยใหม่รูปร่างเปลือกหอยซ้อนกัน ออกแบบโดยสถาปนิกชาวเดนมาร์ก ยอร์น อุตซอน
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> สถาปัตยกรรมโมเดิร์น</span>
+                        <span class="text-globe-gold font-semibold">โซนโอเชียเนีย</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. จีน -->
+            <div onclick="openCountryDetail('china')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=2940&auto=format&fit=crop" alt="China" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇨🇳 จีน (China)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> ปักกิ่ง (Beijing)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">กำแพงเมืองจีน (Great Wall of China)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            สิ่งก่อสร้างทางทหารที่ยาวที่สุดในโลก สร้างขึ้นเพื่อป้องกันการรุกรานจากชนเผ่าเร่ร่อนทางเหนือ เต็มไปด้วยตำนานและประวัติศาสตร์พันปี
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> ประวัติศาสตร์ราชวงศ์จีน</span>
+                        <span class="text-globe-gold font-semibold">โซนเอเชียตะวันออก</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. กรีซ -->
+            <div onclick="openCountryDetail('greece')" class="card-hover bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm flex flex-col cursor-pointer group">
+                <div class="relative h-60 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2874&auto=format&fit=crop" alt="Greece" class="card-img w-full h-full object-cover" />
+                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-globe-blue shadow">
+                        🇬🇷 กรีซ (Greece)
+                    </div>
+                    <div class="absolute bottom-3 right-3 bg-globe-blue/80 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                        <i class="ph ph-eye"></i> คลิกดูคู่มือเชิงลึก
+                    </div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-globe-teal text-sm font-semibold mb-2">
+                            <i class="ph ph-map-pin"></i> เอเธนส์ (Athens)
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">วิหารพาร์ทานอน (Parthenon)</h3>
+                        <p class="text-gray-500 text-sm mb-4 leading-relaxed">
+                            วิหารหินอ่อนบนเนินอะโครโพลิส สร้างขึ้นเพื่อบูชาเทพีอะธีนา ต้นกำเนิดสถาปัตยกรรมกรีกโบราณและรากฐานประชาธิปไตย
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                        <span><i class="ph ph-book-open"></i> ปรัชญาและอารยธรรมกรีก</span>
+                        <span class="text-globe-gold font-semibold">โซนยุโรปใต้</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="culture-hub" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-globe-gold font-semibold tracking-widest text-sm uppercase block mb-2">Educational Hub</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-globe-blue mb-4">เกร็ดความรู้และคู่มือเตรียมตัวเดินทาง</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-base">เสริมสร้างทักษะความเข้าใจเชิงวัฒนธรรม (Cross-Cultural Understanding) ก่อนออกเดินทางจริง</p>
+            </div>
+
+            <!-- Bento Box Magazine Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div onclick="openResourceModal('language')" class="bg-globe-light rounded-3xl p-8 border border-gray-100 flex flex-col justify-between cursor-pointer card-hover">
+                    <div>
+                        <div class="w-12 h-12 bg-globe-blue text-white rounded-2xl flex items-center justify-center mb-6 text-xl">
+                            <i class="ph ph-translate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-globe-blue mb-3">มารยาทและภาษาท้องถิ่น</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">เรียนรู้คำทักทายพื้นฐาน กฎระเบียบทางสังคม และธรรมเนียมการให้ทิปหรือการแต่งกายเข้าศาสนสถานในแต่ละทวีป</p>
+                    </div>
+                    <span class="text-globe-teal font-semibold text-sm flex items-center gap-2">
+                        ศึกษาคู่มือภาษา <i class="ph ph-arrow-right"></i>
+                    </span>
+                </div>
+
+                <div onclick="openResourceModal('form')" class="bg-globe-light rounded-3xl p-8 border border-gray-100 flex flex-col justify-between cursor-pointer card-hover">
+                    <div>
+                        <div class="w-12 h-12 bg-globe-teal text-white rounded-2xl flex items-center justify-center mb-6 text-xl">
+                            <i class="ph ph-file-text"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-globe-blue mb-3">การจัดทำรายงานโครงงาน</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">แนวทางการอ้างอิงแหล่งข้อมูลประวัติศาสตร์ การสัมภาษณ์เชิงลึก และเทคนิคการเขียนบันทึกการเดินทางเชิงวิชาการ</p>
+                    </div>
+                    <span class="text-globe-teal font-semibold text-sm flex items-center gap-2">
+                        ดาวน์โหลดแบบฟอร์ม <i class="ph ph-arrow-right"></i>
+                    </span>
+                </div>
+
+                <div onclick="openResourceModal('library')" class="bg-globe-blue text-white rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden cursor-pointer card-hover">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-xl"></div>
+                    <div>
+                        <div class="w-12 h-12 bg-white/20 text-white rounded-2xl flex items-center justify-center mb-6 text-xl">
+                            <i class="ph ph-student"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">ศูนย์วิชาการ</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">แหล่งรวบรวมหนังสือ วารสารวิชาการ และฐานข้อมูลสารสนเทศภูมิศาสตร์สำหรับนักศึกษาและอาจารย์</p>
+                    </div>
+                    <span class="text-globe-gold font-semibold text-sm flex items-center gap-2">
+                        ติดต่อห้องสมุดกลาง <i class="ph ph-arrow-right"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Country Detail Modal -->
+    <div id="countryModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fadeIn">
+            <button onclick="closeCountryModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-700 transition-colors z-10">
+                <i class="ph ph-x text-xl font-bold"></i>
+            </button>
+            <div id="modalContent" class="p-8">
+                <!-- Dynamically injected content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Modal -->
+    <div id="resourceModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative animate-fadeIn">
+            <button onclick="closeResourceModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-700 transition-colors">
+                <i class="ph ph-x text-xl font-bold"></i>
+            </button>
+            <div id="resourceModalContent">
+                <!-- Dynamically injected resource content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Notification Toast Modal (No alert()) -->
+    <div id="toastModal" class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl text-center animate-fadeIn">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+                <i class="ph ph-check-circle"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">ดำเนินการสำเร็จ</h3>
+            <p id="toastMessage" class="text-gray-600 text-sm mb-6">ดาวน์โหลดเอกสารสำเร็จสำหรับใช้ประกอบการเรียนการสอน</p>
+            <button onclick="closeToastModal()" class="w-full bg-globe-blue text-white py-3 rounded-xl font-bold hover:bg-globe-blue/90 transition-all shadow-md">
+                ตกลง
+            </button>
+        </div>
+    </div>
+
+    <footer id="resources" class="bg-globe-dark text-white pt-16 pb-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 bg-globe-teal rounded-xl flex items-center justify-center text-white">
+                            <i class="ph ph-globe-hemisphere-east text-xl"></i>
+                        </div>
+                        <span class="font-bold text-xl text-white">แหล่งเรียนรู้ละคู่มือการท่องเที่ยว<br>(Educational & Guide traveI)</span>
+                    </div>
+                    <p class="text-gray-400 text-sm max-w-md leading-relaxed mb-6">
+                        แพลตฟอร์มการเรียนรู้และสำรวจอารยธรรมนานาชาติ ออกแบบมาเพื่อสนับสนุนนักศึกษา อาจารย์ และผู้สนใจในการค้นคว้าข้อมูลเชิงลึกระดับโลก
+                    </p>
+                    <div class="flex space-x-4 text-gray-400 text-xl">
+                        <a href="#" class="hover:text-globe-gold transition-colors"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#" class="hover:text-globe-gold transition-colors"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" class="hover:text-globe-gold transition-colors"><i class="ph ph-globe"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-globe-gold mb-4 text-sm uppercase tracking-wider">เมนูด่วน</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">หน้าแรก</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors">10 ประเทศศึกษา</a></li>
+                        <li><a href="#culture-hub" class="hover:text-white transition-colors">สาระน่ารู้และวัฒนธรรม</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-globe-gold mb-4 text-sm uppercase tracking-wider"></h4>
+                    <ul class="space-y-2.5 text-sm text-gray-300">
+                        <li><i class=></i></li>
+                        <li><i class=></i> </li>
+                        <li><i class= </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+                &copy; 2026 Educational & Guide travel  สงวนลิขสิทธิ์ทั้งหมดสำหรับการศึกษา
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Database for 10 countries educational guide
+        const countryData = {
+            japan: {
+                name: "ประเทศญี่ปุ่น (Japan)",
+                flag: "🇯🇵",
+                city: "เกียวโต (Kyoto)",
+                landmark: "วัดคิโยมิซุ (Kiyomizu-dera)",
+                image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2940&auto=format&fit=crop",
+                history: "วัดคิโยมิซุเดระสร้างขึ้นในปี พ.ศ. 1321 (ค.ศ. 778) เกี่ยวข้องกับนิกายฮอสโซโบราณ อาคารปัจจุบันสร้างขึ้นใหม่ในปี พ.ศ. 2176 ตามคำสั่งของโชกุนโท쿠กาวะ อิเอมิสุ โดยเอกลักษณ์คือระเบียงไม้สูง 13 เมตรที่สร้างโดยไม่ใช้ตะปูแม้แต่ตัวเดียว",
+                culture: "การปฏิบัติตัว: ถอดรองเท้าเมื่อเข้าสู่อาคารเสื่อทาตามิ, รักษากฎความเงียบ และใช้น้ำจากน้ำตกโอโตวะ 3 สาย (สุขภาพ ความรัก และการเรียน) ด้วยความเคารพ",
+                educationPoint: "ศึกษาโครงสร้างวิศวกรรมไม้โบราณ (Kigumi) ที่สามารถยืดหยุ่นและทนทานต่อแผ่นดินไหวได้เป็นอย่างดี"
+            },
+            italy: {
+                name: "ประเทศอิตาลี (Italy)",
+                flag: "🇮🇹",
+                city: "กรุงโรม (Rome)",
+                landmark: "โคลอสเซียม (Colosseum)",
+                image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?q=80&w=2896&auto=format&fit=crop",
+                history: "อัฒจันทร์โบราณขนาดใหญ่ใจกลางกรุงโรม เริ่มก่อสร้างในสมัยจักรพรรดิเวสปาเซียนแห่งราชวงศ์ฟลาเวียน และเสร็จสิ้นในสมัยจักรพรริติตูส ใช้เป็นสนามประลองของกลาดิเอเตอร์และมหรสพหลวงในยุคโรมัน",
+                culture: "การปฏิบัติตัว: แต่งกายสุภาพเมื่อเข้าชมโบราณสถาน, ระวังทรัพย์สินส่วนตัวในเขตนักท่องเที่ยวหนาแน่น และศึกษาประวัติศาสตร์สถาปัตยกรรมอาร์คโค้ง (Arch)",
+                educationPoint: "เรียนรู้ระบบการจัดการฝูงชน (Vomitoria) และวิศวกรรมคอนกรีตโรมันโบราณที่มีความคงทนข้ามกาลเวลา"
+            },
+            egypt: {
+                name: "ประเทศอียิปต์ (Egypt)",
+                flag: "🇪🇬",
+                city: "กีซา (Giza)",
+                landmark: "พีระมิดแห่งกีซา (Giza Pyramid Complex)",
+                image: "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=2940&auto=format&fit=crop",
+                history: "กลุ่มพีระมิดแห่งกีซารวมถึงมหาพีระมิดคูฟู สร้างขึ้นเมื่อประมาณ 2,500 ปีก่อนคริสตกาล เป็นสิ่งมหัศจรรย์ยุคโบราณเพียงแห่งเดียวที่ยังคงหลงเหลือมาจนถึงปัจจุบัน สร้างขึ้นเพื่อเป็นสุสานฝังพระศพของฟาโรห์",
+                culture: "การปฏิบัติตัว: แต่งกายมิดชิดเพื่อเคารพสถานที่ศักดิ์สิทธิ์, ห้ามปีนป่ายตัวพีระมิด และศึกษาข้อห้ามทางวัฒนธรรมท้องถิ่น",
+                educationPoint: "ศึกษาการคำนวณทางเรขาคณิต ดาราศาสตร์ และการขนย้ายหินขนาดมหึมาในยุคอารยธรรมอียิปต์โบราณ"
+            },
+            france: {
+                name: "ประเทศฝรั่งเศส (France)",
+                flag: "🇫🇷",
+                city: "ปารีส (Paris)",
+                landmark: "พิพิธภัณฑ์ลูฟวร์ (Louvre Museum)",
+                image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2946&auto=format&fit=crop",
+                history: "เดิมทีลูฟวร์คือพระราชวังหลวงที่สร้างขึ้นในสมัยพระเจ้าฟิลิปที่ 2 ต่อมาถูกเปลี่ยนเป็นพิพิธภัณฑ์แห่งชาติหลังการปฏิวัติฝรั่งเศส เป็นที่จัดแสดงผลงานศิลปะชิ้นเอกของโลก รวมถึงภาพโมนาลิซาของเลโอนาร์โด ดา วินชี",
+                culture: "การปฏิบัติตัว: กล่าวทักทายภาษาฝรั่งเศสเบื้องต้น (Bonjour) ก่อนเริ่มสนทนา, งดการใช้แฟลชถ่ายภาพงานศิลปะ",
+                educationPoint: "ศึกษาประวัติศาสตร์ศิลปะตะวันตกยุคเรเนสซองส์และการอนุรักษ์มรดกทางวัฒนธรรมระดับโลก"
+            },
+            usa: {
+                name: "สหรัฐอเมริกา (USA)",
+                flag: "🇺🇸",
+                city: "นิวยอร์ก (New York)",
+                landmark: "เทพีเสรีภาพ (Statue of Liberty)",
+                image: "https://images.unsplash.com/photo-1534430480872-3498386e7856?q=80&w=2942&auto=format&fit=crop",
+                history: "ประติมากรรมสำแดงโคโลสซอลนีโอคลาสสิกบนเกาะลิเบอร์ตี้ เป็นของขวัญที่ประชาชนชาวฝรั่งเศสส่งมอบให้กับสหรัฐอเมริกาเพื่อเฉลิมฉลองครบรอบ 100 ปีการประกาศอิสรภาพและเป็นสัญลักษณ์แห่งเสรีภาพ",
+                culture: "การปฏิบัติตัว: เคารพสิทธิเสรีภาพและความหลากหลายทางวัฒนธรรม การให้ทิปในบริการต่างๆ เป็นธรรมเนียมปฏิบัติ",
+                educationPoint: "ศึกษาโครงสร้างโครงเหล็กภายในที่ออกแบบโดยกุสตาฟ ไอเฟล และความสัมพันธ์ระหว่างประเทศในประวัติศาสตร์"
+            },
+            india: {
+                name: "ประเทศอินเดีย (India)",
+                flag: "🇮🇳",
+                city: "อัครา (Agra)",
+                landmark: "ทัชมาฮาล (Taj Mahal)",
+                image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=2864&auto=format&fit=crop",
+                history: "สุสานหินอ่อนสีขาวที่สมเด็จพระจักรพรรดิศาห์ชะฮานทรงสร้างขึ้นเพื่อรำลึกถึงพระมเหสีอันเป็นพระราชหฤทัย มัมทาซ มาฮาล เป็นยอดสถาปัตยกรรมสมัยโมกุลที่ผสมผสานศิลปะเปอร์เซียและอิสลาม",
+                culture: "การปฏิบัติตัว: ถอดรองเท้าหรือสวมถุงคลุมรองเท้าก่อนเหยียบพื้นที่สุสาน, แต่งกายสุภาพเรียบร้อยและสำรวมกิริยา",
+                educationPoint: "ศึกษาความสมมาตรทางสถาปัตยกรรม (Symmetry) และศิลปะการฝังอัญมณีลงบนหินอ่อน (Pietra Dura)"
+            },
+            uk: {
+                name: "สหราชอาณาจักร (UK)",
+                flag: "🇬🇧",
+                city: "ลอนดอน (London)",
+                landmark: "หอนาฬิกาบิกเบน (Big Ben)",
+                image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2940&auto=format&fit=crop",
+                history: "หอนาฬิกาขนาดใหญ่ที่ตั้งอยู่ทางเหนือของอาคารรัฐสภาเวสต์มินสเตอร์ สร้างขึ้นใหม่ในสถาปัตยกรรมฟื้นฟูกอธิก (Gothic Revival) หลังจากเหตุการณ์ไฟไหม้ครั้งใหญ่ในปี พ.ศ. 2377",
+                culture: "การปฏิบัติตัว: เดินชิดซ้ายบนบันไดเลื่อน, ตรงต่อเวลา และเคารพกฎระเบียบสาธารณะอย่างเคร่งครัด",
+                educationPoint: "ศึกษาการทำงานของกลไกนาฬิกาจักรกลโบราณและประวัติศาสตร์ระบอบประชาธิปไตยแบบรัฐสภา"
+            },
+            australia: {
+                name: "ประเทศออสเตรเลีย (Australia)",
+                flag: "🇦🇺",
+                city: "ซิดนีย์ (Sydney)",
+                landmark: "โรงละครโอเปร่าเฮาส์ (Sydney Opera House)",
+                image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=2940&auto=format&fit=crop",
+                history: "ผลงานชิ้นเอกของสถาปัตยกรรมศตวรรษที่ 20 ออกแบบโดยสถาปนิกชาวเดนมาร์ก ยอร์น อุตซอน ลักษณะเด่นคือหลังคารูปเปลือกหอยซ้อนกันที่ตั้งตระหง่านริมอ่าวซิดนีย์ เปิดใช้งานในปี พ.ศ. 2516",
+                culture: "การปฏิบัติตัว: วัฒนธรรมแบบสบายๆ แต่ให้เกียรติธรรมชาติและสิ่งแวดล้อม รักษาความสะอาดพื้นที่สาธารณะ",
+                educationPoint: "ศึกษาการใช้เทคโนโลยีคอมพิวเตอร์ยุคแรกในการคำนวณโครงสร้างเปลือกคอนกรีตและการจัดการอาคารสีเขียว"
+            },
+            china: {
+                name: "ประเทศจีน (China)",
+                flag: "🇨🇳",
+                city: "ปักกิ่ง (Beijing)",
+                landmark: "กำแพงเมืองจีน (Great Wall of China)",
+                image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?q=80&w=2940&auto=format&fit=crop",
+                history: "แนวป้อมปราการทางทหารที่สร้างขึ้นในหลายราชวงศ์ เริ่มตั้งแต่สมัยจิ๋นซีฮ่องเต้เพื่อป้องกันการรุกรานจากชนเผ่าเร่ร่อนทางเหนือ มีความยาวรวมนับหมื่นกิโลเมตรผ่านภูมิประเทศที่หลากหลาย",
+                culture: "การปฏิบัติตัว: เตรียมร่างกายให้พร้อมสำหรับการเดินขึ้นบันไดสูงชัน, เคารพโบราณสถานและปฏิบัติตามป้ายเตือนอย่างเคร่งครัด",
+                educationPoint: "ศึกษาประวัติศาสตร์การรวมชาติ โลจิสติกส์การก่อสร้างโบราณ และยุทธศาสตร์การทหารสมัยจีนโบราณ"
+            },
+            greece: {
+                name: "ประเทศกรีซ (Greece)",
+                flag: "🇬🇷",
+                city: "เอเธนส์ (Athens)",
+                landmark: "วิหารพาร์ทานอน (Parthenon)",
+                image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=2874&auto=format&fit=crop",
+                history: "วิหารหินอ่อนบนเนินอะโครโพลิส สร้างขึ้นในศตวรรษที่ 5 ก่อนคริสตกาลเพื่ออุทิศให้กับเทพีอะธีนา พาร์ทอส เป็นสัญลักษณ์สูงสุดของอารยธรรมกรีกโบราณและรากฐานสถาปัตยกรรมคลาสสิก",
+                culture: "การปฏิบัติตัว: สวมรองเท้าเดินสบายเนื่องจากพื้นหินมีความลาดชันและลื่น, รักษาระยะห่างจากแนวเขตโบราณสถาน",
+                educationPoint: "ศึกษาหลักสัดส่วนทองคำ (Golden Ratio) และสถาปัตยกรรมเสา 3 แบบหลัก (Doric, Ionic, Corinthian)"
+            }
+        };
+
+        // Smooth scroll helper
+        function scrollToSection(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function openCountryDetail(countryKey) {
+            const data = countryData[countryKey];
+            if (!data) return;
+
+            const content = `
+                <div class="mb-6">
+                    <span class="inline-block px-3 py-1 rounded-full bg-globe-blue/10 text-globe-blue font-bold text-xs mb-3">${data.flag} ${data.name}</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-globe-blue mb-2">${data.landmark}</h2>
+                    <p class="text-globe-teal font-medium flex items-center gap-1.5"><i class="ph ph-map-pin"></i> พิกัดสำคัญ: ${data.city}</p>
+                </div>
+                
+                <div class="rounded-2xl overflow-hidden mb-6 h-72 shadow-md">
+                    <img src="${data.image}" alt="${data.landmark}" class="w-full h-full object-cover" />
+                </div>
+
+                <div class="space-y-6 text-gray-700">
+                    <div class="bg-globe-light p-5 rounded-2xl border border-gray-100">
+                        <h4 class="font-bold text-globe-blue mb-2 flex items-center gap-2"><i class="ph ph-scroll text-globe-gold"></i> ประวัติศาสตร์และความเป็นมา</h4>
+                        <p class="text-sm leading-relaxed">${data.history}</p>
+                    </div>
+
+                    <div class="bg-globe-light p-5 rounded-2xl border border-gray-100">
+                        <h4 class="font-bold text-globe-blue mb-2 flex items-center gap-2"><i class="ph ph-users text-globe-teal"></i> วัฒนธรรมและมารยาทท้องถิ่น</h4>
+                        <p class="text-sm leading-relaxed">${data.culture}</p>
+                    </div>
+
+                    <div class="bg-globe-blue text-white p-5 rounded-2xl">
+                        <h4 class="font-bold mb-2 flex items-center gap-2 text-globe-gold"><i class="ph ph-graduation-cap"></i> ประเด็นศึกษาสำหรับโครงงานนักศึกษา</h4>
+                        <p class="text-sm text-gray-200 leading-relaxed">${data.educationPoint}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('countryModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCountryModal() {
+            document.getElementById('countryModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openResourceModal(type) {
+            let title = "";
+            let desc = "";
+            
+            if (type === 'language') {
+                title = "คู่มือคำศัพท์และมารยาทสากล";
+                desc = "รวบรวมคำทักทายพื้นฐาน 10 ภาษาหลัก ข้อควรปฏิบัติในการเข้าศาสนสถาน และกฎระเบียบการปฏิบัติตัวสำหรับนักศึกษาที่ออกภาคสนามต่างประเทศ";
+            } else if (type === 'form') {
+                title = "แบบฟอร์มบันทึกโครงงานและรายงานการเดินทาง";
+                desc = "ดาวน์โหลดโครงร่างรายงาน (Project Proposal Template), แบบฟอร์มบันทึกภาคสนาม และเกณฑ์การประเมินผลการเรียนรู้วัฒนธรรมนานาชาติฉบับสมบูรณ์";
+            } else {
+                title = "ศูนย์วิทยบริการและฐานข้อมูลออนไลน์";
+                desc = "เข้าถึงระบบห้องสมุดดิจิทัล รายงานวิจัยย้อนหลัง และแผนที่สารสนเทศภูมิศาสตร์เชิงประวัติศาสตร์สำหรับนักศึกษาวิทยาลัย";
+            }
+
+            const content = `
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-globe-blue/10 text-globe-blue rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl">
+                        <i class="ph ph-file-arrow-down"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-globe-blue mb-2">${title}</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">${desc}</p>
+                </div>
+                <div class="bg-globe-light p-4 rounded-xl border border-gray-100 mb-6 text-xs text-gray-500 flex items-center justify-between">
+                    <span><i class="ph ph-info"></i> รูปแบบไฟล์: PDF (พร้อมสำหรับการศึกษา)</span>
+                    <span class="text-globe-teal font-semibold">สถานะ: พร้อมดาวน์โหลด</span>
+                </div>
+                <button onclick="triggerDownloadToast()" class="w-full bg-globe-blue text-white py-3 rounded-xl font-bold hover:bg-globe-blue/90 transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="ph ph-download-simple"></i> ยืนยันการดาวน์โหลดเอกสาร
+                </button>
+            `;
+
+            document.getElementById('resourceModalContent').innerHTML = content;
+            document.getElementById('resourceModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeResourceModal() {
+            document.getElementById('resourceModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function triggerDownloadToast() {
+            closeResourceModal();
+            document.getElementById('toastMessage').innerText = "ดาวน์โหลดเอกสารประกอบการเรียนการสอนสำเร็จ!";
+            document.getElementById('toastModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeToastModal() {
+            document.getElementById('toastModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('menuIcon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = "ph ph-list";
+            } else {
+                icon.className = "ph ph-x";
+            }
+        }
+
+        function filterCountries() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.getElementById('countryGrid').children;
+
+            for (let card of cards) {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
+        const searchInputEl = document.getElementById('searchInput');
+        if (searchInputEl) {
+            searchInputEl.addEventListener('input', filterCountries);
+        }
+    </script>
+</body>
+</html>
